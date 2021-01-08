@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+$background: #1f2833;
+$accent: #66fcf1;
+$primary: white;
+$secondary: #c5c6c7;
+$minimumWidth: 867px;
+
+@mixin borderStyle(){
+    background-color: $background;
+    border: 1px solid $accent;
+}
+
+@mixin priceInput {
+    background-color: $background;
+    border: none;
+    border-bottom: 1px solid $accent;
+}
+
+@mixin generalDisplay {
+    width: 80%;
+    min-width: $minimumWidth;
+    display: flex;
+    margin: 100px auto;
+}
+
+@import './topBar', './middleBar', './bottomBar';
+
+*{
+    margin: 0;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: 'Roboto Mono', monospace;
+    color: $primary;
+}
+
+body{
+    background-color: $background;
+}
+
+h1{
+    color: $accent;
+    font-size: 3rem;
+}
+
+p{
+    font-size: 1.5rem;
+}
+
+i{
+  color: $primary;
+  font-size: 1.5rem;  
+  text-align: center;
+  width: 100%;
+  height: auto;
+}

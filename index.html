@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://kit.fontawesome.com/dc102f3107.js" crossorigin="anonymous"></script>
+        <title>Stock API</title>
+        <link rel="stylesheet" type="text/css" href="./styles/style.css">
+        <script src="script.js" type="text/javascript" defer></script>
+    </head>
+
+    <body>
+
+
+
+        <div id="top">
+
+            <ul id="stockIconContainer">
+                <li><a href="#" class="classicStocks FB"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#" class="classicStocks AMZN"><i class="fab fa-amazon"></i></a></li>
+                <li><a href="#" class="classicStocks GOOG"><i class="fab fa-google"></i></a></li>
+                <li><a href="#" class="classicStocks AAPL"><i class="fab fa-apple"></i></a></li>
+                <li><a href="#" class="classicStocks MSFT"><i class="fab fa-windows"></i></a></li>
+            </ul>
+
+            <div id="searchBar">
+                <input type="text" id="stockSearch" name="stockSearch" placeholder="search stock...">
+                <div id="icon"><a href="#"><i class="fas fa-search"></i></a></div>
+            </div>
+
+        </div>
+
+
+
+        <div id="middle">
+
+            <div id="graphDiv"></div>
+            
+            <div id="prices">
+                <h1 id="stockHeading">STCK</h1> <!-- Debe tener tamano de 72 px-->
+                <ul>
+                    <li>
+                        <p>Max. Price</p> <!-- Debe tener tamano de 36 px-->
+                        <input type="text" id="maxPrice" name="maxPrice">
+                    </li>
+
+                    <li>
+                        <p>Current Price</p>
+                        <p id="current">100.18</p>
+                    </li>
+
+                    <li id="last">
+                        <p>Min. Price</p>
+                        <input type="text" id="minPrice" name="minPrice">
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+
+
+        <div id="bottom">
+            <div id="priceHistory">
+                <div class="historyContainer" >
+                    <p class="smolText">52 week Max.</p>
+                    <p id="yMax">15.53</p>  <!-- Debe tener tamano de 32px-->
+                </div>
+
+                <div class="historyContainer" >
+                    <p class="smolText">52 week Min.</p>
+                    <p id="yMin">15.53</p>
+                </div>
+
+                <div class="historyContainer" >
+                    <p class="smolText">24hr. Max.</p>
+                    <p id="24Max">15.53</p>
+                </div>
+
+                <div class="historyContainer" >
+                    <p class="smolText">24hr. Min.</p>
+                    <p id="24Min">15.53</p>
+                </div>
+            </div>
+
+            <div id="priceProbability">
+
+                <p class="smolText">Price Probability</p>
+                
+                <div id="minMax">
+                    <div class="probability" id="min">
+                        <h1 class="percentage" id="minPercentage">?</h1>
+                        <p>Min.</p>
+                    </div>
+                    <div class="probability" id="max">
+                        <h1 class="percentage" id="maxPercentage">?</h1>
+                        <p>Max.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button">Calculate</button>
+        </div>
+
+
+    </body>
+</html>

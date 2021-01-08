@@ -1,0 +1,42 @@
+#middle{
+    @include generalDisplay();
+
+    #graphDiv{
+        width: 50%;
+        border-bottom: 1px solid $secondary;
+        border-left: 1px solid $secondary;
+        margin: 50px 50px 0 0;
+    }
+
+    #prices{
+        width: 50%;
+        padding: 0 75px;
+
+        h1{text-align: center;}
+        ul{
+            list-style: none;
+
+            li{
+                display: flex;
+                justify-content: space-between;
+                margin: 50px 0;
+                input{
+                    outline: none;
+                    @include priceInput();
+                    text-align: right;
+                    font-size: 1.5rem;
+                    width: 25%;
+                    color: $accent;
+                }
+
+                #current{
+                    color: $accent;
+                }
+            }
+
+            #last{
+                margin-bottom: 0;
+            }
+        }
+    }
+}
