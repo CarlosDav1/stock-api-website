@@ -1,4 +1,5 @@
 let stockArray = ["FB", "AMZN", "GOOG", "AAPL", "MSFT"];
+//I put a comment
 
 //this function is used to define the current stock
 //we call another function to get the information from an API
