@@ -36,7 +36,7 @@
                 <script defer>
                     var ctx = document.getElementById('myChart').getContext('2d');
                     var myChart = new Chart(ctx, {
-                        type: 'bar',
+                        type: 'line',
                         data: {
                             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                             datasets: [{
@@ -58,16 +58,34 @@
                                     'rgba(153, 102, 255, 1)',
                                     'rgba(255, 159, 64, 1)'
                                 ],
-                                borderWidth: 1
+                                borderWidth: 1, 
+                                fill: false,
+                                borderColor: 'rgba(102, 252, 241, 1)',
+                                lineTension: 0,
+                                pointBorderWidth: 0,
+                                pointRadius: 0
                             }]
                         },
                         options: {
                             scales: {
                                 yAxes: [{
+                                    gridLines: {
+                                        display: false
+                                    },
                                     ticks: {
-                                        beginAtZero: true
+                                        beginAtZero: false
                                     }
-                                }]
+                                }],
+
+                                xAxes: [{
+                                    gridLines: {
+                                        display: false
+                                    }
+                                }],
+                            },
+
+                            legend:{
+                                display: false
                             }
                         }
                     });
