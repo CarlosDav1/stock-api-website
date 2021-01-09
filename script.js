@@ -108,13 +108,14 @@ function chart(pricesArray){
 
                     gridLines: {
                         color: 'rgba(0, 0, 0, 0)',
-                        zeroLineColor: 'rgba(197, 198, 199, 1)',
+                        zeroLineColor: 'rgba(197, 198, 199, 1)'
                     }
                 }],
 
                 xAxes: [{
                     ticks: {
-                        beginAtZero: false
+                        beginAtZero: true,
+                        display: false
                     },
 
                     gridLines: {
