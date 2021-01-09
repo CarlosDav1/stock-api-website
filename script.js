@@ -70,9 +70,8 @@ function ProbabilityCalculation(price, possibleHigh, possibleLow){
    return [probabilityToHigh, probabilityToLow];
 }
 
-DefineStock("FB");
-
-
+//TODO: Quitar el comentario una vez que esté lista la grafica
+//DefineStock("FB");
 
 
 

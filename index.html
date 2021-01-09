@@ -32,7 +32,7 @@
         <div id="middle">
 
             <div id="graphDiv">
-                <canvas id="myChart" width="300" height="300"></canvas>
+                <canvas id="myChart"></canvas>
                 <script defer>
                     var ctx = document.getElementById('myChart').getContext('2d');
                     var myChart = new Chart(ctx, {
@@ -69,19 +69,26 @@
                         options: {
                             scales: {
                                 yAxes: [{
-                                    gridLines: {
-                                        display: false
-                                    },
                                     ticks: {
-                                        beginAtZero: false
+                                        beginAtZero: true
+                                    },
+
+                                    gridLines: {
+                                        color: 'rgba(0, 0, 0, 0)',
+                                        zeroLineColor: 'rgba(197, 198, 199, 1)',
                                     }
                                 }],
 
                                 xAxes: [{
+                                    ticks: {
+                                        beginAtZero: false
+                                    },
+
                                     gridLines: {
-                                        display: false
+                                        color: 'rgba(0, 0, 0, 0)',
+                                        zeroLineColor: 'rgba(197, 198, 199, 1)'
                                     }
-                                }],
+                                }]
                             },
 
                             legend:{
