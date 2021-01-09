@@ -82,7 +82,6 @@ function ElementUpdate(info){
 }
 
 function chart(pricesArray){
-    console.log(pricesArray);
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
