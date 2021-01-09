@@ -73,7 +73,56 @@ function ElementUpdate(info){
     //document.getElementById("minPercentage").innerHTML = probability[1];
 }
 
+function chart(){
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1, 
+                fill: false,
+                borderColor: 'rgba(102, 252, 241, 1)',
+                lineTension: 0,
+                pointBorderWidth: 0,
+                pointRadius: 0
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
 
+                    gridLines: {
+                        color: 'rgba(0, 0, 0, 0)',
+                        zeroLineColor: 'rgba(197, 198, 199, 1)',
+                    }
+                }],
+
+                xAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    },
+
+                    gridLines: {
+                        color: 'rgba(0, 0, 0, 0)',
+                        zeroLineColor: 'rgba(197, 198, 199, 1)'
+                    }
+                }]
+            },
+
+            legend:{
+                display: false
+            }
+        }
+    });
+}
+
+chart();
 //TODO: Quitar el comentario una vez que esté lista la grafica
 DefineStock("FB");
 
