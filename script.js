@@ -27,6 +27,7 @@ function DefineStock(stockSymbol){
         let weeklyData = await GetApi(yearlyURL);
 
         let currentPrice;
+        let chartData = [];
 
         let highLowDaily = GetHighLow(dailyData["Global Quote"]["03. high"], dailyData["Global Quote"][ "04. low"]);
         let highLowWeekly = GetHighLow(weeklyData["52WeekHigh"], weeklyData["52WeekLow"]);
@@ -37,7 +38,12 @@ function DefineStock(stockSymbol){
             break;
         }
 
-        ElementUpdate([data["Meta Data"]["2. Symbol"], currentPrice, highLowDaily, highLowWeekly]);
+        for(y in data["Time Series (5min)"]){
+            let prices = data["Time Series (5min)"][y]["4. close"];
+            chartData.push(prices);
+        }
+
+        ElementUpdate([data["Meta Data"]["2. Symbol"], currentPrice, highLowDaily, highLowWeekly, chartData]);
     }
 
     GetStockValue();
@@ -67,21 +73,24 @@ function ElementUpdate(info){
     document.getElementById("yMax").innerHTML = info[3][0];
     document.getElementById("yMin").innerHTML = info[3][1];
 
+    chart(info[4]);
+
     //TODO: tomar el input del usuario para lo siguiente
     //let probability =  ProbabilityCalculation(currentStockValue, 300, 250);
     //document.getElementById("maxPercentage").innerHTML = probability[0];
     //document.getElementById("minPercentage").innerHTML = probability[1];
 }
 
-function chart(){
+function chart(pricesArray){
+    console.log(pricesArray);
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: pricesArray,
             datasets: [{
                 label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                data: pricesArray,
                 borderWidth: 1, 
                 fill: false,
                 borderColor: 'rgba(102, 252, 241, 1)',
@@ -94,7 +103,7 @@ function chart(){
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: false
                     },
 
                     gridLines: {
@@ -122,7 +131,6 @@ function chart(){
     });
 }
 
-chart();
 //TODO: Quitar el comentario una vez que esté lista la grafica
 DefineStock("FB");
 
