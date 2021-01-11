@@ -79,6 +79,8 @@ function ElementUpdate(info){
     document.getElementById("yMax").innerHTML = info[3][0];
     document.getElementById("yMin").innerHTML = info[3][1];
 
+    info[4].reverse();
+    
     chart(info[4]);
 
     //TODO: tomar el input del usuario para lo siguiente
@@ -102,10 +104,10 @@ function chart(pricesArray){
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: pricesArray.reverse(),
+            labels: pricesArray,
             datasets: [{
                 label: 'price',
-                data: pricesArray.reverse(),
+                data: pricesArray,
                 borderWidth: 1, 
                 fill: false,
                 borderColor: 'rgba(102, 252, 241, 1)',
@@ -167,6 +169,7 @@ DefineStock("FB");
     -Hacer la actualizacion de los datos automatica y deshacerce del boton
     -Agregar probabilidad basada en el mas bajo de las ultimas horas y de el ultimo anio
     -hacer esto responsivo
+    -Agregar un last refreshed para aclarar confusiones
 
     Sprint 6 Busqueda:
     -Hacer funcionar la barra de busqueda
