@@ -3,7 +3,6 @@ let stockArray = ["FB", "AMZN", "GOOG", "AAPL", "MSFT"];
 //this function is used to define the current stock
 //we call another function to get the information from an API
 function DefineStock(stockSymbol){
-    //TODO: Esconder mi API key
     let stockURL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + stockSymbol + "&interval=5min&outputsize=compact&apikey=8A2FATO31TXMHYZQ";
     let dailyURL = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="+ stockSymbol +"&apikey=8A2FATO31TXMHYZQ";
     let yearlyURL = "https://www.alphavantage.co/query?function=OVERVIEW&symbol="+ stockSymbol +"&apikey=8A2FATO31TXMHYZQ";
@@ -131,7 +130,6 @@ function chart(pricesArray){
     });
 }
 
-//TODO: Quitar el comentario una vez que esté lista la grafica
 DefineStock("FB");
 
 
@@ -139,12 +137,7 @@ DefineStock("FB");
 /*
     TODO:
     Sprint 2 Grafica:
-    -Hacer funcionar la grafica
     -Actualizar lineas de posibles precios en la grafica
-
-    Sprint 3 Busqueda:
-    -Hacer funcionar la barra de busqueda
-    -Evitar errores al buscar una stock
 
     Sprint 4 Probabilidades:
     -Leer input de usuarios
@@ -155,6 +148,11 @@ DefineStock("FB");
     Sprint 5 Optimizacion:
     -Actualizar la grafica cada 5 minutos o menos si es posible
     -Hacer la actualizacion de los datos automatica y deshacerce del boton
-    -Crear autocopletado en la barra
     -Agregar probabilidad basada en el mas bajo de las ultimas horas y de el ultimo anio
+    -hacer esto responsivo
+
+    Sprint 6 Busqueda:
+    -Hacer funcionar la barra de busqueda
+    -Evitar errores al buscar una stock
+    -Crear autocopletado en la barra
 */

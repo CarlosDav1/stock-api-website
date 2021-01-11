@@ -8,11 +8,12 @@ $heights: 50px;
 
 #top{
     @include generalDisplay();
-    justify-content: space-between;
+    justify-content: center;
 
     #stockIconContainer{
         display: flex;
         width: 50%;
+        justify-content: center;
         li{
             position: relative;
             list-style: none;
@@ -34,6 +35,7 @@ $heights: 50px;
     }
 
     #searchBar{
+        display: none;
         position: relative;
         width: 50%;
         height: $heights;

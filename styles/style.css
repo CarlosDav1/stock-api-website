@@ -6,9 +6,9 @@
   display: -ms-flexbox;
   display: flex;
   margin: 100px auto;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 #top #stockIconContainer {
@@ -16,6 +16,9 @@
   display: -ms-flexbox;
   display: flex;
   width: 50%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 #top #stockIconContainer li {
@@ -46,6 +49,7 @@
 }
 
 #top #searchBar {
+  display: none;
   position: relative;
   width: 50%;
   height: 50px;
