@@ -43,6 +43,12 @@ function DefineStock(stockSymbol){
             chartData.push(prices);
         }
 
+        function initialValues(price){
+            document.getElementById("maxPrice").value = parseFloat(price) + 1;
+            document.getElementById("minPrice").value = parseFloat(price) - 1;
+        }
+        
+        initialValues(currentPrice);
         ElementUpdate([data["Meta Data"]["2. Symbol"], currentPrice, highLowDaily, highLowWeekly, chartData]);
     }
 
@@ -84,8 +90,8 @@ function ElementUpdate(info){
 calculateButton.addEventListener("click", getUserInput);
 
 function getUserInput(){
-    let userMax = document.getElementById("maxPrice").value;
-    let userMin = document.getElementById("minPrice").value;
+    const userMax = document.getElementById("maxPrice").value;
+    const userMin = document.getElementById("minPrice").value;
 
     console.log(userMax);
     console.log(userMin);
@@ -96,10 +102,10 @@ function chart(pricesArray){
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: pricesArray,
+            labels: pricesArray.reverse(),
             datasets: [{
-                label: '# of Votes',
-                data: pricesArray,
+                label: 'price',
+                data: pricesArray.reverse(),
                 borderWidth: 1, 
                 fill: false,
                 borderColor: 'rgba(102, 252, 241, 1)',
