@@ -1,4 +1,5 @@
 let stockArray = ["FB", "AMZN", "GOOG", "AAPL", "MSFT"];
+const calculateButton = document.getElementById("bigButton");
 
 //this function is used to define the current stock
 //we call another function to get the information from an API
@@ -78,6 +79,16 @@ function ElementUpdate(info){
     //let probability =  ProbabilityCalculation(currentStockValue, 300, 250);
     //document.getElementById("maxPercentage").innerHTML = probability[0];
     //document.getElementById("minPercentage").innerHTML = probability[1];
+}
+
+calculateButton.addEventListener("click", getUserInput);
+
+function getUserInput(){
+    let userMax = document.getElementById("maxPrice").value;
+    let userMin = document.getElementById("minPrice").value;
+
+    console.log(userMax);
+    console.log(userMin);
 }
 
 function chart(pricesArray){
