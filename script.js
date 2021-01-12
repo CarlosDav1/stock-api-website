@@ -1,5 +1,10 @@
 let stockArray = ["FB", "AMZN", "GOOG", "AAPL", "MSFT"];
 const calculateButton = document.getElementById("bigButton");
+const maxPriceField = document.getElementById("maxPrice");
+const minPriceField = document.getElementById("minPrice");
+
+maxPriceField.addEventListener("change", () => console.log("change on max"));
+minPriceField.addEventListener("change", () => console.log("change on min"));
 
 //this function is used to define the current stock
 //we call another function to get the information from an API
@@ -44,8 +49,8 @@ function DefineStock(stockSymbol){
         }
 
         function initialValues(price){
-            const maxEstimate = document.getElementById("maxPrice").value = parseFloat(price) + 1;
-            const minEstimate = document.getElementById("minPrice").value = parseFloat(price) - 1;
+            const maxEstimate = maxPriceField.value = parseFloat(price) + 1;
+            const minEstimate = minPriceField.value = parseFloat(price) - 1;
             return [minEstimate, maxEstimate];
         }
         
