@@ -66,7 +66,20 @@ for(let i = 0; i<buttons.length;i++){
 function ProbabilityCalculation(price, possibleHigh, possibleLow){
    let probabilityToHigh = possibleLow <= 0? (price - 0.01) / (possibleHigh - 0.01) : (price - possibleLow) / (possibleHigh - possibleLow);
    let probabilityToLow = 1 - probabilityToHigh;
-   return [probabilityToHigh, probabilityToLow];
+   let high, low;
+
+   probabilityToHigh = (probabilityToHigh * 100).toString();
+   probabilityToLow = (probabilityToLow * 100).toString();
+
+   if(probabilityToHigh.indexOf(".") == -1 || probabilityToLow.indexOf(".") == -1){
+        high =  probabilityToHigh + "%";
+        low = probabilityToLow + "%";
+   }
+   else{
+        high =  probabilityToHigh.slice(0, probabilityToHigh.indexOf(".")) + "%";
+        low = probabilityToLow.slice(0, probabilityToLow.indexOf(".")) + "%";
+   }
+   return [high, low];
 }
 
 function ElementUpdate(info){
@@ -84,9 +97,9 @@ function ElementUpdate(info){
     chart(info[4], info[5][0], info[5][1]);
 
     //TODO: tomar el input del usuario para lo siguiente
-    //let probability =  ProbabilityCalculation(currentStockValue, 300, 250);
-    //document.getElementById("maxPercentage").innerHTML = probability[0];
-    //document.getElementById("minPercentage").innerHTML = probability[1];
+    let probability =  ProbabilityCalculation(info[1], info[5][0], info[5][1]);
+    document.getElementById("maxPercentage").innerHTML = probability[0];
+    document.getElementById("minPercentage").innerHTML = probability[1];
 }
 
 calculateButton.addEventListener("click", getUserInput);
@@ -104,16 +117,6 @@ function chart(pricesArray, min, max){
     const maxArray = pricesArray.map(() => value = max);
     const minArray = pricesArray.map(() => value = min);
 
-    /*
-    function newArrayLines(value){
-        value = max;
-        return value;
-    }*/
-
-    function second(value){
-        value = min;
-        return value;
-    }
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -193,12 +196,9 @@ DefineStock("FB");
 
 /*
     TODO:
-    Sprint 2 Grafica:
-    -Actualizar lineas de posibles precios en la grafica
 
     Sprint 4 Probabilidades:
     -Leer input de usuarios
-    -Hacer funcionar el boton
     -Llamar funciones de algoritmos al presionar el boton
     -Actualizar numeros de probabilidaes
 
