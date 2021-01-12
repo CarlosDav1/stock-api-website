@@ -3,9 +3,34 @@ const calculateButton = document.getElementById("bigButton");
 const maxPriceField = document.getElementById("maxPrice");
 const minPriceField = document.getElementById("minPrice");
 
-maxPriceField.addEventListener("change", () => console.log("change on max"));
-minPriceField.addEventListener("change", () => console.log("change on min"));
+maxPriceField.addEventListener("change", function(){modifyLines("max", maxPriceField.value)});
+minPriceField.addEventListener("change", function(){modifyLines("min", minPriceField.value)});
 
+let maxArray;
+let minArray;
+
+function modifyLines(type, newValue){
+    //console.log(type + " " + newValue);
+
+    console.log(newValue);
+
+    if(type == "max"){
+        maxArray.forEach(changingValues);
+
+        console.log(maxArray);
+    }
+
+    if(type == "min"){
+        minArray.forEach(changingValues);
+
+        console.log(minArray);
+    }
+
+    function changingValues(item, index, arr){
+        item = parseFloat(newValue);
+        arr[index] = item;
+    }
+}
 //this function is used to define the current stock
 //we call another function to get the information from an API
 function DefineStock(stockSymbol){
@@ -119,8 +144,8 @@ function getUserInput(){
 
 //TODO: Actualizar el eje y cada que cambia de grafica
 function chart(pricesArray, min, max){
-    const maxArray = pricesArray.map(() => value = max);
-    const minArray = pricesArray.map(() => value = min);
+    maxArray = pricesArray.map(() => value = max);
+    minArray = pricesArray.map(() => value = min);
 
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
