@@ -44,12 +44,12 @@ function DefineStock(stockSymbol){
         }
 
         function initialValues(price){
-            document.getElementById("maxPrice").value = parseFloat(price) + 1;
-            document.getElementById("minPrice").value = parseFloat(price) - 1;
+            const maxEstimate = document.getElementById("maxPrice").value = parseFloat(price) + 1;
+            const minEstimate = document.getElementById("minPrice").value = parseFloat(price) - 1;
+            return [minEstimate, maxEstimate];
         }
         
-        initialValues(currentPrice);
-        ElementUpdate([data["Meta Data"]["2. Symbol"], currentPrice, highLowDaily, highLowWeekly, chartData]);
+        ElementUpdate([data["Meta Data"]["2. Symbol"], currentPrice, highLowDaily, highLowWeekly, chartData, initialValues(currentPrice)]);
     }
 
     GetStockValue();
@@ -81,7 +81,7 @@ function ElementUpdate(info){
 
     info[4].reverse();
     
-    chart(info[4]);
+    chart(info[4], info[5][0], info[5][1]);
 
     //TODO: tomar el input del usuario para lo siguiente
     //let probability =  ProbabilityCalculation(currentStockValue, 300, 250);
@@ -99,7 +99,21 @@ function getUserInput(){
     console.log(userMin);
 }
 
-function chart(pricesArray){
+//TODO: Actualizar el eje y cada que cambia de grafica
+function chart(pricesArray, min, max){
+    const maxArray = pricesArray.map(() => value = max);
+    const minArray = pricesArray.map(() => value = min);
+
+    /*
+    function newArrayLines(value){
+        value = max;
+        return value;
+    }*/
+
+    function second(value){
+        value = min;
+        return value;
+    }
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -113,8 +127,32 @@ function chart(pricesArray){
                 borderColor: 'rgba(102, 252, 241, 1)',
                 lineTension: 0,
                 pointBorderWidth: 0,
-                pointRadius: 0
-            }]
+                pointRadius: 0,
+                pointHitRadius: 0
+            },
+            {
+                label: 'max',
+                data: maxArray,
+                borderWidth: 1, 
+                fill: false,
+                borderColor:  'rgba(107, 252, 102, 1)',
+                lineTension: 0,
+                pointBorderWidth: 0,
+                pointRadius: 0,
+                pointHitRadius: 0
+            },
+            {
+                label: 'min',
+                data: minArray,
+                borderWidth: 1, 
+                fill: false,
+                borderColor: 'rgba(252, 102, 110, 1)',
+                lineTension: 0,
+                pointBorderWidth: 0,
+                pointRadius: 0,
+                pointHitRadius: 0
+            }
+        ]
         },
         options: {
             scales: {
@@ -169,7 +207,8 @@ DefineStock("FB");
     -Hacer la actualizacion de los datos automatica y deshacerce del boton
     -Agregar probabilidad basada en el mas bajo de las ultimas horas y de el ultimo anio
     -hacer esto responsivo
-    -Agregar un last refreshed para aclarar confusiones
+    -Agregar un last refreshed para aclarar confusiones asi como un 5 minute chart indicator
+    -Ver si se pueden reducir el numero de api calls
 
     Sprint 6 Busqueda:
     -Hacer funcionar la barra de busqueda
