@@ -1,30 +1,16 @@
 let stockArray = ["FB", "AMZN", "GOOG", "AAPL", "MSFT"];
-let priceHistory, maxP, minP, myChart;
 const calculateButton = document.getElementById("bigButton");
 const maxPriceField = document.getElementById("maxPrice");
 const minPriceField = document.getElementById("minPrice");
 
-maxPriceField.addEventListener("change", function(){modifyLines("max", maxPriceField.value)});
-minPriceField.addEventListener("change", function(){modifyLines("min", minPriceField.value)});
+maxPriceField.addEventListener("change", function(){myChart(true, maxPriceField.value)});
+minPriceField.addEventListener("change", function(){myChart(false, minPriceField.value)});
 
-function modifyLines(type, newValue){
-
-    if(type == "max"){
-        /*myChart.maxArray.forEach(changingValues);
-        myChart.chartInfo.update();*/
-        myChart();
-    }
-
-    if(type == "min"){
-        //myChart.minArray.forEach(changingValues);
-        //myChart.chartInfo.update();
-        myChart();
-    }
-
-    function changingValues(item, index, arr){
-        item = parseFloat(newValue);
-        arr[index] = item;
-    }
+let buttons = document.getElementsByClassName("classicStocks");
+for(let i = 0; i<buttons.length;i++){
+    buttons[i].addEventListener("click", function(){
+        DefineStock(buttons[i].classList.item(1))
+    }); 
 }
 
 //this function is used to define the current stock
@@ -83,10 +69,7 @@ function DefineStock(stockSymbol){
 
 //TODO: Actualizar el eje y cada que cambia de grafica
 function chart(pricesArray, min, max){
-    priceHistory = pricesArray.map(item => item);
-    let maxArray = pricesArray.map(() => value = max);
-    let minArray = pricesArray.map(() => value = min);
-
+    let priceHistory = pricesArray.map(item => item);
     
     var ctx = document.getElementById('myChart').getContext('2d');
     var chartInfo = new Chart(ctx, {
@@ -106,7 +89,7 @@ function chart(pricesArray, min, max){
         },
         {
             label: 'max',
-            data: maxArray,
+            data: priceHistory.map(() => value = max),
             borderWidth: 1, 
             fill: false,
             borderColor:  'rgba(107, 252, 102, 1)',
@@ -117,7 +100,7 @@ function chart(pricesArray, min, max){
         },
         {
             label: 'min',
-            data: minArray,
+            data: priceHistory.map(() => value = min),
             borderWidth: 1, 
             fill: false,
             borderColor: 'rgba(252, 102, 110, 1)',
@@ -161,20 +144,17 @@ function chart(pricesArray, min, max){
     }
 );
 
-    function sayHi(){
-        return console.log("Hi");
+    function modifyChart(param, newValue)
+    {
+        if (param){chartInfo.data.datasets[1].data = priceHistory.map(() => value = parseFloat(newValue));}
+        else{chartInfo.data.datasets[2].data = priceHistory.map(() => value = parseFloat(newValue));}
+
+        chartInfo.update();
+
+        //TODO: Add price validation
     }
 
-    return sayHi;
-}
-
-
-//The following code gives every button on the upper left of the site an event listener 
-let buttons = document.getElementsByClassName("classicStocks");
-for(let i = 0; i<buttons.length;i++){
-    buttons[i].addEventListener("click", function(){
-        DefineStock(buttons[i].classList.item(1))
-    }); 
+    return modifyChart;
 }
 
 function ProbabilityCalculation(price, possibleHigh, possibleLow){
@@ -216,27 +196,16 @@ function ElementUpdate(info){
     document.getElementById("minPercentage").innerHTML = probability[1];
 }
 
-calculateButton.addEventListener("click", getUserInput);
-
-function getUserInput(){
-    const userMax = document.getElementById("maxPrice").value;
-    const userMin = document.getElementById("minPrice").value;
-
-    console.log(userMax);
-    console.log(userMin);
-}
 DefineStock("FB");
 
 /*
     TODO:
 
     Sprint 4 Probabilidades:
-    -Leer input de usuarios
     -Llamar funciones de algoritmos al presionar el boton
     -Actualizar numeros de probabilidaes
 
     Sprint 5 Optimizacion:
-    -Actualizar la grafica cada 5 minutos o menos si es posible
     -Hacer la actualizacion de los datos automatica y deshacerce del boton
     -Agregar probabilidad basada en el mas bajo de las ultimas horas y de el ultimo anio
     -hacer esto responsivo
