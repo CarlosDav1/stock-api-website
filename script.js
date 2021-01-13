@@ -147,9 +147,11 @@ function chart(pricesArray, min, max){
     {
         if (param && newValue > priceHistory[priceHistory.length - 1]){
             chartInfo.data.datasets[1].data = priceHistory.map(() => value = parseFloat(newValue));
+            ProbabilityCalculation(priceHistory[priceHistory.length - 1], newValue, chartInfo.data.datasets[2].data[0]);
         }
         else if (!param && newValue < priceHistory[priceHistory.length - 1]){
             chartInfo.data.datasets[2].data = priceHistory.map(() => value = parseFloat(newValue));
+            ProbabilityCalculation(priceHistory[priceHistory.length - 1], chartInfo.data.datasets[1].data[0], newValue);
         }
         else if (param && newValue < priceHistory[priceHistory.length - 1]){
             alert("The Max. price has to be bigger than the current price");
@@ -158,32 +160,42 @@ function chart(pricesArray, min, max){
             alert("The Min. price has to be smaller than the current price");
         }
 
-        console.log(priceHistory[priceHistory.length - 1]);
         chartInfo.update();
 
-        //TODO: call the probability calcularion
+        //TODO: call the probability calculation
     }
 
     return modifyChart;
 }
 
 function ProbabilityCalculation(price, possibleHigh, possibleLow){
-   let probabilityToHigh = possibleLow <= 0? (price - 0.01) / (possibleHigh - 0.01) : (price - possibleLow) / (possibleHigh - possibleLow);
-   let probabilityToLow = 1 - probabilityToHigh;
-   let high, low;
+    let probabilityToHigh = possibleLow <= 0? (price - 0.01) / (possibleHigh - 0.01) : (price - possibleLow) / (possibleHigh - possibleLow);
+    let probabilityToLow = 1 - probabilityToHigh;
+    let high, low;
 
-   probabilityToHigh = (probabilityToHigh * 100).toString();
-   probabilityToLow = (probabilityToLow * 100).toString();
+    if(probabilityToHigh >= 0.989){
+        probabilityToHigh = 0.99;
+        probabilityToLow = 0.01;
+    }
+    else if(probabilityToLow >= 0.989){
+        probabilityToLow = 0.99;
+        probabilityToHigh = 0.01;
+    }
 
-   if(probabilityToHigh.indexOf(".") == -1 || probabilityToLow.indexOf(".") == -1){
+    probabilityToHigh = (probabilityToHigh * 100).toString();
+    probabilityToLow = (probabilityToLow * 100).toString();
+
+    if(probabilityToHigh.indexOf(".") == -1 || probabilityToLow.indexOf(".") == -1){
         high =  probabilityToHigh + "%";
         low = probabilityToLow + "%";
-   }
-   else{
+    }
+    else{
         high =  probabilityToHigh.slice(0, probabilityToHigh.indexOf(".")) + "%";
         low = probabilityToLow.slice(0, probabilityToLow.indexOf(".")) + "%";
-   }
-   return [high, low];
+    }
+
+    document.getElementById("maxPercentage").innerHTML = high;
+    document.getElementById("minPercentage").innerHTML = low;
 }
 
 function ElementUpdate(info){
@@ -201,9 +213,9 @@ function ElementUpdate(info){
     myChart = chart(info[4], info[5][0], info[5][1]);
 
     //TODO: tomar el input del usuario para lo siguiente
-    let probability =  ProbabilityCalculation(info[1], info[5][0], info[5][1]);
-    document.getElementById("maxPercentage").innerHTML = probability[0];
-    document.getElementById("minPercentage").innerHTML = probability[1];
+    ProbabilityCalculation(info[1], info[5][0], info[5][1]);
+    //document.getElementById("maxPercentage").innerHTML = probability[0];
+    //document.getElementById("minPercentage").innerHTML = probability[1];
 }
 
 DefineStock("FB");
