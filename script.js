@@ -67,7 +67,6 @@ function DefineStock(stockSymbol){
     GetStockValue();
 }
 
-//TODO: Actualizar el eje y cada que cambia de grafica
 function chart(pricesArray, min, max){
     let priceHistory = pricesArray.map(item => item);
     
@@ -146,12 +145,23 @@ function chart(pricesArray, min, max){
 
     function modifyChart(param, newValue)
     {
-        if (param){chartInfo.data.datasets[1].data = priceHistory.map(() => value = parseFloat(newValue));}
-        else{chartInfo.data.datasets[2].data = priceHistory.map(() => value = parseFloat(newValue));}
+        if (param && newValue > priceHistory[priceHistory.length - 1]){
+            chartInfo.data.datasets[1].data = priceHistory.map(() => value = parseFloat(newValue));
+        }
+        else if (!param && newValue < priceHistory[priceHistory.length - 1]){
+            chartInfo.data.datasets[2].data = priceHistory.map(() => value = parseFloat(newValue));
+        }
+        else if (param && newValue < priceHistory[priceHistory.length - 1]){
+            alert("The Max. price has to be bigger than the current price");
+        }
+        else{
+            alert("The Min. price has to be smaller than the current price");
+        }
 
+        console.log(priceHistory[priceHistory.length - 1]);
         chartInfo.update();
 
-        //TODO: Add price validation
+        //TODO: call the probability calcularion
     }
 
     return modifyChart;
