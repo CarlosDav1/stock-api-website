@@ -1,8 +1,8 @@
 #bottom{
     @include generalDisplay();
     justify-content: space-between;
-    #priceHistory, #priceProbability, button{
-        width: 33%;
+    #priceHistory, #priceProbability{
+        width: 50%;
     }
 
     #priceHistory{
@@ -17,6 +17,10 @@
         .smolText{
             color: $secondary;
             font-size: 1rem;
+        }
+
+        .historyContainer{
+            text-align: right;
         }
     }
 

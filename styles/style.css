@@ -132,17 +132,17 @@
 #middle #graphDiv {
   width: 50%;
   height: 100%;
-  margin: auto 0;
+  margin-top: auto;
 }
 
 #middle #graphDiv canvas {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 #middle #prices {
   width: 50%;
-  padding: 0 75px;
+  padding-left: 75px;
 }
 
 #middle #prices h1 {
@@ -194,8 +194,8 @@
           justify-content: space-between;
 }
 
-#bottom #priceHistory, #bottom #priceProbability, #bottom button {
-  width: 33%;
+#bottom #priceHistory, #bottom #priceProbability {
+  width: 50%;
 }
 
 #bottom #priceHistory {
@@ -213,6 +213,10 @@
 #bottom #priceHistory .smolText {
   color: #c5c6c7;
   font-size: 1rem;
+}
+
+#bottom #priceHistory .historyContainer {
+  text-align: right;
 }
 
 #bottom #priceProbability {
