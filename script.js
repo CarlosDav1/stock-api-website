@@ -1,4 +1,5 @@
 let stockArray = ["FB", "AMZN", "GOOG", "AAPL", "MSFT"];
+let priceHistory, maxP, minP, myChart;
 const calculateButton = document.getElementById("bigButton");
 const maxPriceField = document.getElementById("maxPrice");
 const minPriceField = document.getElementById("minPrice");
@@ -6,24 +7,18 @@ const minPriceField = document.getElementById("minPrice");
 maxPriceField.addEventListener("change", function(){modifyLines("max", maxPriceField.value)});
 minPriceField.addEventListener("change", function(){modifyLines("min", minPriceField.value)});
 
-let maxArray;
-let minArray;
-
 function modifyLines(type, newValue){
-    //console.log(type + " " + newValue);
-
-    console.log(newValue);
 
     if(type == "max"){
-        maxArray.forEach(changingValues);
-
-        console.log(maxArray);
+        /*myChart.maxArray.forEach(changingValues);
+        myChart.chartInfo.update();*/
+        myChart();
     }
 
     if(type == "min"){
-        minArray.forEach(changingValues);
-
-        console.log(minArray);
+        //myChart.minArray.forEach(changingValues);
+        //myChart.chartInfo.update();
+        myChart();
     }
 
     function changingValues(item, index, arr){
@@ -31,6 +26,7 @@ function modifyLines(type, newValue){
         arr[index] = item;
     }
 }
+
 //this function is used to define the current stock
 //we call another function to get the information from an API
 function DefineStock(stockSymbol){
@@ -85,6 +81,94 @@ function DefineStock(stockSymbol){
     GetStockValue();
 }
 
+//TODO: Actualizar el eje y cada que cambia de grafica
+function chart(pricesArray, min, max){
+    priceHistory = pricesArray.map(item => item);
+    let maxArray = pricesArray.map(() => value = max);
+    let minArray = pricesArray.map(() => value = min);
+
+    
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chartInfo = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: priceHistory,
+        datasets: [{
+            label: 'price',
+            data: priceHistory,
+            borderWidth: 1, 
+            fill: false,
+            borderColor: 'rgba(102, 252, 241, 1)',
+            lineTension: 0,
+            pointBorderWidth: 0,
+            pointRadius: 0,
+            pointHitRadius: 0
+        },
+        {
+            label: 'max',
+            data: maxArray,
+            borderWidth: 1, 
+            fill: false,
+            borderColor:  'rgba(107, 252, 102, 1)',
+            lineTension: 0,
+            pointBorderWidth: 0,
+            pointRadius: 0,
+            pointHitRadius: 0
+        },
+        {
+            label: 'min',
+            data: minArray,
+            borderWidth: 1, 
+            fill: false,
+            borderColor: 'rgba(252, 102, 110, 1)',
+            lineTension: 0,
+            pointBorderWidth: 0,
+            pointRadius: 0,
+            pointHitRadius: 0
+        }
+    ]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: false
+                },
+
+                gridLines: {
+                    color: 'rgba(0, 0, 0, 0)',
+                    zeroLineColor: 'rgba(197, 198, 199, 1)'
+                }
+            }],
+
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    display: false
+                },
+
+                gridLines: {
+                    color: 'rgba(0, 0, 0, 0)',
+                    zeroLineColor: 'rgba(197, 198, 199, 1)'
+                }
+            }]
+        },
+
+        legend:{
+            display: false
+        }
+    }
+    }
+);
+
+    function sayHi(){
+        return console.log("Hi");
+    }
+
+    return sayHi;
+}
+
+
 //The following code gives every button on the upper left of the site an event listener 
 let buttons = document.getElementsByClassName("classicStocks");
 for(let i = 0; i<buttons.length;i++){
@@ -123,8 +207,8 @@ function ElementUpdate(info){
     document.getElementById("yMin").innerHTML = info[3][1];
 
     info[4].reverse();
-    
-    chart(info[4], info[5][0], info[5][1]);
+
+    myChart = chart(info[4], info[5][0], info[5][1]);
 
     //TODO: tomar el input del usuario para lo siguiente
     let probability =  ProbabilityCalculation(info[1], info[5][0], info[5][1]);
@@ -141,88 +225,7 @@ function getUserInput(){
     console.log(userMax);
     console.log(userMin);
 }
-
-//TODO: Actualizar el eje y cada que cambia de grafica
-function chart(pricesArray, min, max){
-    maxArray = pricesArray.map(() => value = max);
-    minArray = pricesArray.map(() => value = min);
-
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: pricesArray,
-            datasets: [{
-                label: 'price',
-                data: pricesArray,
-                borderWidth: 1, 
-                fill: false,
-                borderColor: 'rgba(102, 252, 241, 1)',
-                lineTension: 0,
-                pointBorderWidth: 0,
-                pointRadius: 0,
-                pointHitRadius: 0
-            },
-            {
-                label: 'max',
-                data: maxArray,
-                borderWidth: 1, 
-                fill: false,
-                borderColor:  'rgba(107, 252, 102, 1)',
-                lineTension: 0,
-                pointBorderWidth: 0,
-                pointRadius: 0,
-                pointHitRadius: 0
-            },
-            {
-                label: 'min',
-                data: minArray,
-                borderWidth: 1, 
-                fill: false,
-                borderColor: 'rgba(252, 102, 110, 1)',
-                lineTension: 0,
-                pointBorderWidth: 0,
-                pointRadius: 0,
-                pointHitRadius: 0
-            }
-        ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false
-                    },
-
-                    gridLines: {
-                        color: 'rgba(0, 0, 0, 0)',
-                        zeroLineColor: 'rgba(197, 198, 199, 1)'
-                    }
-                }],
-
-                xAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        display: false
-                    },
-
-                    gridLines: {
-                        color: 'rgba(0, 0, 0, 0)',
-                        zeroLineColor: 'rgba(197, 198, 199, 1)'
-                    }
-                }]
-            },
-
-            legend:{
-                display: false
-            }
-        }
-    });
-}
-
 DefineStock("FB");
-
-
 
 /*
     TODO:
