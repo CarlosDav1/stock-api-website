@@ -27,56 +27,54 @@ function DefineStock(stockSymbol){
         return data;
     }
 
-    let GetHighLow = (highData, lowData) => {
-        let high = highData.slice(0, highData.indexOf(".") + 3);
-        let low = lowData.slice(0, lowData.indexOf(".") + 3);
+    async function GetHighLow(highData, lowData) {
+        console.log(highData.indexOf("."));
+        console.log(lowData.indexOf("."));
+        
+        let high = await highData.slice(0, highData.indexOf(".") + 3);
+        let low =  await lowData.slice(0, lowData.indexOf(".") + 3);
         return [high, low];
     }
 
     async function GetStockValue(){
-        let data, dailyData, weeklyData;
         try{
-            data = await GetApi(stockURL);
-            dailyData = await GetApi(dailyURL);
-            weeklyData = await GetApi(yearlyURL);
+            let data = await GetApi(stockURL);
+            let dailyData = await GetApi(dailyURL);
+            let weeklyData = await GetApi(yearlyURL);
+
+            let currentPrice;
+            let chartData = [];
+            let highLowDaily;
+            let highLowWeekly;
+
+            highLowDaily = await GetHighLow(dailyData["Global Quote"]["03. high"], dailyData["Global Quote"][ "04. low"]);
+            highLowWeekly = await GetHighLow(weeklyData["52WeekHigh"], weeklyData["52WeekLow"]);
+
+            for(x in data["Time Series (5min)"]){
+                let latestPrice = data["Time Series (5min)"][x]["4. close"]; //Getting the most recent price
+                currentPrice = latestPrice.slice(0, latestPrice.indexOf(".") + 3);
+                break;
+            }
+
+            for(y in data["Time Series (5min)"]){
+                let prices = data["Time Series (5min)"][y]["4. close"];
+                chartData.push(prices);
+            }
+
+            function initialValues(price){
+                const maxEstimate = maxPriceField.value = parseFloat(price) + 1;
+                const minEstimate = minPriceField.value = parseFloat(price) - 1;
+                return [minEstimate, maxEstimate];
+            }
+            
+            let chartLastRefreshed = [data["Meta Data"]["3. Last Refreshed"], data["Meta Data"]["6. Time Zone"]];
+
+            ElementUpdate([data["Meta Data"]["2. Symbol"], currentPrice, highLowDaily, highLowWeekly, chartData, initialValues(currentPrice), chartLastRefreshed]);
+            
         }
         catch{
-            alert("You ran out of API calls, please wait at least 1 minute to make more requests.")
+          alert("There seems to be a problem with this stock, please try another one or wait 1 minute and try again")  
         }
-
-        let currentPrice;
-        let chartData = [];
-        let highLowDaily;
-        let highLowWeekly;
-
-        try{
-            highLowDaily = GetHighLow(dailyData["Global Quote"]["03. high"], dailyData["Global Quote"][ "04. low"]);
-            highLowWeekly = GetHighLow(weeklyData["52WeekHigh"], weeklyData["52WeekLow"]);
-        }
-        catch{
-            alert("You ran out of API calls, please wait at least 1 minute to make more requests.");
-        }
-
-        for(x in data["Time Series (5min)"]){
-            let latestPrice = data["Time Series (5min)"][x]["4. close"]; //Getting the most recent price
-            currentPrice = latestPrice.slice(0, latestPrice.indexOf(".") + 3);
-            break;
-        }
-
-        for(y in data["Time Series (5min)"]){
-            let prices = data["Time Series (5min)"][y]["4. close"];
-            chartData.push(prices);
-        }
-
-        function initialValues(price){
-            const maxEstimate = maxPriceField.value = parseFloat(price) + 1;
-            const minEstimate = minPriceField.value = parseFloat(price) - 1;
-            return [minEstimate, maxEstimate];
-        }
-        
-        let chartLastRefreshed = [data["Meta Data"]["3. Last Refreshed"], data["Meta Data"]["6. Time Zone"]];
-
-        ElementUpdate([data["Meta Data"]["2. Symbol"], currentPrice, highLowDaily, highLowWeekly, chartData, initialValues(currentPrice), chartLastRefreshed]);
     }
 
     GetStockValue();
