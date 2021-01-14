@@ -214,10 +214,7 @@ function ElementUpdate(info){
 
     myChart = chart(info[4], info[5][0], info[5][1]);
 
-    //TODO: tomar el input del usuario para lo siguiente
     ProbabilityCalculation(info[1], info[5][0], info[5][1]);
-    //document.getElementById("maxPercentage").innerHTML = probability[0];
-    //document.getElementById("minPercentage").innerHTML = probability[1];
 }
 
 DefineStock("FB");
