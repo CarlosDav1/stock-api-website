@@ -140,6 +140,13 @@
   height: auto;
 }
 
+#middle #graphDiv .chartDiscalimer {
+  color: #c5c6c7;
+  font-style: italic;
+  font-size: 1rem;
+  opacity: 0.5;
+}
+
 #middle #prices {
   width: 50%;
   padding-left: 75px;

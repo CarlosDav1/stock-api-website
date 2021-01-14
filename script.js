@@ -220,16 +220,7 @@ DefineStock("FB");
 
 /*
     TODO:
-
     Sprint 5 Optimizacion:
-    -Agregar probabilidad basada en el mas bajo de las ultimas horas y de el ultimo anio
     -hacer esto responsivo
     -Agregar un last refreshed para aclarar confusiones asi como un 5 minute chart indicator
-    -Ver si se pueden reducir el numero de api calls
-    -Crear algo que llene la parte derecha de la pantalla
-
-    Sprint 6 Busqueda:
-    -Hacer funcionar la barra de busqueda
-    -Evitar errores al buscar una stock
-    -Crear autocopletado en la barra
 */
