@@ -301,6 +301,31 @@
   #middle #graphDiv {
     width: 90%;
   }
+  #bottom {
+    min-width: 0;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #bottom #priceHistory, #bottom #priceProbability {
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+  #bottom #priceProbability .smolText {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  #bottom #priceProbability #minMax {
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  #bottom #priceProbability #minMax #max {
+    margin: 0;
+  }
+  #bottom #priceHistory .historyContainer {
+    text-align: center;
+  }
 }
 
 * {
