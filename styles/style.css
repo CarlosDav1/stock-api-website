@@ -25,8 +25,8 @@
   position: relative;
   list-style: none;
   margin: 0 10px;
-  width: 50px;
-  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
   border-radius: 25px;
   background-color: #1f2833;
   border: 1px solid #66fcf1;
@@ -100,8 +100,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 50px;
-  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
   border-radius: 25px;
   background-color: #1f2833;
   border: 1px solid #66fcf1;
@@ -276,6 +276,13 @@
 }
 
 @media (max-width: 970px) {
+  #top {
+    min-width: 0;
+    width: 100%;
+  }
+  #top #stockIconContainer {
+    width: 100%;
+  }
   #middle {
     min-width: 0;
     -webkit-box-orient: vertical;

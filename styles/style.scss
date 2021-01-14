@@ -29,6 +29,15 @@ $minimumWidth: 867px;
 @media(max-width: 970px){
     $minimumWidth: 0;
 
+    #top{
+        min-width: $minimumWidth;
+        width: 100%;
+
+        #stockIconContainer{
+            width: 100%;
+        }
+    }
+
     #middle{
         
         min-width: $minimumWidth;

@@ -1,8 +1,8 @@
 $heights: 50px;
 
 @mixin circles {
-    width:  $heights;
-    height: $heights;
+    min-width:  $heights;
+    min-height: $heights;
     border-radius: $heights / 2;
 }
 
