@@ -34,15 +34,28 @@ function DefineStock(stockSymbol){
     }
 
     async function GetStockValue(){
-        let data = await GetApi(stockURL);
-        let dailyData = await GetApi(dailyURL);
-        let weeklyData = await GetApi(yearlyURL);
+        let data, dailyData, weeklyData;
+        try{
+            data = await GetApi(stockURL);
+            dailyData = await GetApi(dailyURL);
+            weeklyData = await GetApi(yearlyURL);
+        }
+        catch{
+            alert("You ran out of API calls, please wait at least 1 minute to make more requests.")
+        }
 
         let currentPrice;
         let chartData = [];
+        let highLowDaily;
+        let highLowWeekly;
 
-        let highLowDaily = GetHighLow(dailyData["Global Quote"]["03. high"], dailyData["Global Quote"][ "04. low"]);
-        let highLowWeekly = GetHighLow(weeklyData["52WeekHigh"], weeklyData["52WeekLow"]);
+        try{
+            highLowDaily = GetHighLow(dailyData["Global Quote"]["03. high"], dailyData["Global Quote"][ "04. low"]);
+            highLowWeekly = GetHighLow(weeklyData["52WeekHigh"], weeklyData["52WeekLow"]);
+        }
+        catch{
+            alert("You ran out of API calls, please wait at least 1 minute to make more requests.");
+        }
 
         for(x in data["Time Series (5min)"]){
             let latestPrice = data["Time Series (5min)"][x]["4. close"]; //Getting the most recent price
