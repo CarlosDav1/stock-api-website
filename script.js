@@ -213,15 +213,7 @@ function ElementUpdate(info){
     info[4].reverse();
 
     myChart = chart(info[4], info[5][0], info[5][1]);
-
     ProbabilityCalculation(info[1], info[5][0], info[5][1]);
 }
 
 DefineStock("FB");
-
-/*
-    TODO:
-    Sprint 5 Optimizacion:
-    -hacer esto responsivo
-    -Agregar un last refreshed para aclarar confusiones asi como un 5 minute chart indicator
-*/

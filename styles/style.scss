@@ -26,6 +26,27 @@ $minimumWidth: 867px;
 
 @import './topBar', './middleBar', './bottomBar';
 
+@media(max-width: 970px){
+    $minimumWidth: 0;
+
+    #middle{
+        
+        min-width: $minimumWidth;
+        flex-direction: column-reverse;
+        align-items: center;
+
+        #prices{
+            width: 90%;
+            padding: 0;
+            margin-bottom: 5rem;
+        }
+
+        #graphDiv{
+            width: 90%;
+        }
+    }
+}
+
 *{
     margin: 0;
     padding: 0%;

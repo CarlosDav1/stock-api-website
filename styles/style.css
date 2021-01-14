@@ -146,6 +146,7 @@
   font-size: 1rem;
   opacity: 0.5;
   text-align: center;
+  margin-top: 1.25rem;
 }
 
 #middle #prices {
@@ -272,6 +273,27 @@
 
 #bottom button:focus {
   outline: none;
+}
+
+@media (max-width: 970px) {
+  #middle {
+    min-width: 0;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #middle #prices {
+    width: 90%;
+    padding: 0;
+    margin-bottom: 5rem;
+  }
+  #middle #graphDiv {
+    width: 90%;
+  }
 }
 
 * {
