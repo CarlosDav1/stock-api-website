@@ -11,11 +11,12 @@
             height: auto;
         }
 
-        .chartDiscalimer{
+        #chartDisclaimer{
             color: $secondary;
             font-style: italic;
             font-size: 1rem;
             opacity: 0.5;
+            text-align: center;
         }
     }
 

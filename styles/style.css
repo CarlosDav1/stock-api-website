@@ -140,11 +140,12 @@
   height: auto;
 }
 
-#middle #graphDiv .chartDiscalimer {
+#middle #graphDiv #chartDisclaimer {
   color: #c5c6c7;
   font-style: italic;
   font-size: 1rem;
   opacity: 0.5;
+  text-align: center;
 }
 
 #middle #prices {

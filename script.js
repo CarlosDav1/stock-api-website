@@ -61,7 +61,9 @@ function DefineStock(stockSymbol){
             return [minEstimate, maxEstimate];
         }
         
-        ElementUpdate([data["Meta Data"]["2. Symbol"], currentPrice, highLowDaily, highLowWeekly, chartData, initialValues(currentPrice)]);
+        let chartLastRefreshed = [data["Meta Data"]["3. Last Refreshed"], data["Meta Data"]["6. Time Zone"]];
+
+        ElementUpdate([data["Meta Data"]["2. Symbol"], currentPrice, highLowDaily, highLowWeekly, chartData, initialValues(currentPrice), chartLastRefreshed]);
     }
 
     GetStockValue();
@@ -205,6 +207,8 @@ function ElementUpdate(info){
     document.getElementById("24Min").innerHTML = info[2][1];
     document.getElementById("yMax").innerHTML = info[3][0];
     document.getElementById("yMin").innerHTML = info[3][1];
+
+    document.getElementById("chartDisclaimer").innerHTML = "Last refreshed: " + info[6][0] + " " + info[6][1] ;
 
     info[4].reverse();
 
